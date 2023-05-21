@@ -45,6 +45,7 @@ const Index = ({ navigation }) => {
 Index.navigationOptions = ({ navigation }) => {
   return {
     headerRight: () => (
+      // pop function returns user to the screen they were using previously
       <TouchableOpacity onPress={() => navigation.navigate("Create")}>
         <AntDesign name="plus" size={30} color="black" />
       </TouchableOpacity>

@@ -17,5 +17,12 @@ const reducer = (state, action) => {
     );
     return { ...state, items: filtered };
   }
+  if (action.type === "UPDATE") {
+    let itemToEdit = state.items.find((item) => item.id == action.payload.id);
+    let newArray = state.items.filter((item) => item.id !== action.payload.id);
+    itemToEdit.title = action.payload.title;
+    itemToEdit.content = action.payload.content;
+    return { ...state, items: [...state.items, ...newArray, itemToEdit] };
+  }
 };
 export default reducer;

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import useGlobalContext from "../context/AppContext";
-const CreateScreen = ({ navigation }) => {
-  const { addMe } = useGlobalContext();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+
+const EditScreen = ({ navigation }) => {
+  const { items, updateMe } = useGlobalContext();
+  const id = navigation.getParam("id");
+  const itemFound = items.find((item) => item.id == id);
+  const [title, setTitle] = useState(itemFound.title);
+  const [content, setContent] = useState(itemFound.content);
+  console.log(itemFound);
   return (
     <View style={styles.ViewStyles}>
       <Text style={styles.textStyle}>Enter Title:</Text>
@@ -20,9 +24,9 @@ const CreateScreen = ({ navigation }) => {
         onChangeText={(newtext) => setContent(newtext)}
       />
       <Button
-        title="Add Blog post"
+        title="Edit Blog post"
         style={styles.button}
-        onPress={() => addMe(title, content, navigation.navigate("Index"))}
+        onPress={() => updateMe(id, title, content, navigation.pop())}
       />
     </View>
   );
@@ -59,4 +63,4 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 });
-export default CreateScreen;
+export default EditScreen;

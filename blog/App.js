@@ -4,6 +4,7 @@ import Index from "./src/screens/Index";
 import { AppProvider } from "./src/context/AppContext";
 import ShowScreen from "./src/screens/ShowScreen";
 import CreateScreen from "./src/screens/CreateScreen";
+import EditScreen from "./src/screens/EditScreen";
 import React from "react";
 
 const navigator = createStackNavigator(
@@ -11,6 +12,7 @@ const navigator = createStackNavigator(
     Index: Index,
     Show: ShowScreen,
     Create: CreateScreen,
+    Edit: EditScreen,
   },
   {
     initialRouteName: "Index",

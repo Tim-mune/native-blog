@@ -6,7 +6,13 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const blogPosts = [];
   const initialState = {
-    items: [],
+    items: [
+      {
+        id: 40,
+        title: "randome numbers in javascript",
+        content: "tutorial on math.random()",
+      },
+    ],
     name: "",
   };
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -19,8 +25,14 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: "DELETEARRAY", payload: { id } });
   };
 
+  const updateMe = (id, title, content) => {
+    dispatch({ type: "UPDATE", payload: { id, title, content } });
+  };
+
   return (
-    <AppContext.Provider value={{ blogPosts, ...state, addMe, deleteMe }}>
+    <AppContext.Provider
+      value={{ blogPosts, ...state, addMe, deleteMe, updateMe }}
+    >
       {children}
     </AppContext.Provider>
   );
