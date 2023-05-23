@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import useGlobalContext from "../context/AppContext";
 import { FlatList } from "react-native-gesture-handler";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 const Index = ({ navigation }) => {
-  const { items, addMe, deleteMe } = useGlobalContext();
+  const { items, addMe, deleteMe, getBlogs } = useGlobalContext();
   if (items.length < 1) {
     return (
       <Text style={{ fontSize: 35, textAlign: "center", marginTop: 100 }}>
@@ -13,6 +13,9 @@ const Index = ({ navigation }) => {
       </Text>
     );
   }
+  useEffect(() => {
+    getBlogs();
+  }, [items]);
   return (
     <View style={styles.viewStyle}>
       <Text style={styles.textStyles}>{items.length}</Text>

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useReducer } from "react";
+import jsonServer from "../api/jsonServer";
 // import createDataContext from "./createDataContext";
 import reducer from "./reducer";
 const AppContext = createContext();
@@ -16,8 +17,18 @@ export const AppProvider = ({ children }) => {
     name: "",
   };
   const [state, dispatch] = useReducer(reducer, initialState);
-  const addMe = (title, content) => {
-    dispatch({ type: "ADDARRAY", payload: { title, content } });
+  const addMe = async (title, content) => {
+    await jsonServer.post("/blogposts", { title, content });
+    // dispatch({ type: "ADDARRAY", payload: { title, content } });
+  };
+
+  const getBlogs = async () => {
+    try {
+      const res = await jsonServer.get("/blogposts");
+      dispatch({ type: "GETBLOGS", payload: res.data });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const deleteMe = (id) => {
@@ -31,7 +42,7 @@ export const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ blogPosts, ...state, addMe, deleteMe, updateMe }}
+      value={{ blogPosts, ...state, addMe, deleteMe, updateMe, getBlogs }}
     >
       {children}
     </AppContext.Provider>

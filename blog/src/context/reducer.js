@@ -24,5 +24,8 @@ const reducer = (state, action) => {
     itemToEdit.content = action.payload.content;
     return { ...state, items: [...state.items, ...newArray, itemToEdit] };
   }
+  if (action.type === "GETBLOGS") {
+    return { ...state, items: action.payload };
+  }
 };
 export default reducer;
