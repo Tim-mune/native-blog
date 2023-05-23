@@ -31,13 +31,15 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  const deleteMe = (id) => {
+  const deleteMe = async (id) => {
+    await jsonServer.delete(`/blogposts/${id}`);
     // console.log("remove", id);
-    dispatch({ type: "DELETEARRAY", payload: { id } });
+    // dispatch({ type: "DELETEARRAY", payload: { id } });
   };
 
-  const updateMe = (id, title, content) => {
-    dispatch({ type: "UPDATE", payload: { id, title, content } });
+  const updateMe = async (id, title, content) => {
+    await jsonServer.put(`/blogposts/${id}`, { title, content });
+    // dispatch({ type: "UPDATE", payload: { id, title, content } });
   };
 
   return (
